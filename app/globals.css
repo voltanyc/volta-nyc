@@ -1,0 +1,114 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #080808;
+    color: #F0F0F0;
+    font-family: var(--font-dm), sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background: #C4F135;
+    color: #080808;
+  }
+}
+
+@layer components {
+  .volt-btn {
+    @apply inline-flex items-center gap-2 px-6 py-3 bg-volt text-dark font-barlow font-700 text-lg tracking-wide uppercase transition-all duration-200 hover:bg-volt-dim hover:scale-[1.02] active:scale-[0.98];
+  }
+
+  .volt-btn-outline {
+    @apply inline-flex items-center gap-2 px-6 py-3 border border-light/30 text-light font-barlow font-600 text-lg tracking-wide uppercase transition-all duration-200 hover:border-volt hover:text-volt;
+  }
+
+  .section-label {
+    @apply font-barlow text-volt text-sm tracking-[0.2em] uppercase font-600;
+  }
+
+  .display-xl {
+    @apply font-barlow font-800 uppercase leading-none tracking-tight;
+  }
+
+  .card {
+    @apply bg-dark-2 border border-dark-3 p-6 transition-all duration-300 hover:border-volt/30;
+  }
+
+  .form-input {
+    @apply w-full bg-dark-2 border border-dark-3 text-light placeholder-mid px-4 py-3 text-sm font-dm transition-colors duration-200 focus:outline-none focus:border-volt/60;
+  }
+
+  .form-label {
+    @apply block text-sm font-dm text-mid mb-1.5 tracking-wide;
+  }
+}
+
+/* Noise texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.025;
+  pointer-events: none;
+  z-index: 9999;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #080808; }
+::-webkit-scrollbar-thumb { background: #C4F135; }
+
+/* Ticker pause on hover */
+.ticker-wrap:hover .ticker-inner {
+  animation-play-state: paused;
+}
+
+/* Fade up animation with delay support */
+.fade-up {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Green text highlight */
+.volt-highlight {
+  color: #C4F135;
+}
+
+/* Underline accent */
+.volt-underline {
+  position: relative;
+  display: inline-block;
+}
+
+.volt-underline::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: #C4F135;
+}
