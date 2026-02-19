@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { BoltIcon } from "@/components/Icons";
 
 const SERVICES = [
   "Website Design & Development",
@@ -36,8 +37,6 @@ export default function ContactForm() {
     e.preventDefault();
     setStatus("loading");
 
-    // Replace YOUR_FORMSPREE_ID with your actual Formspree form ID
-    // Sign up at formspree.io → New Form → copy the ID
     const FORMSPREE_ENDPOINT = "https://formspree.io/f/xkovzkwz";
 
     try {
@@ -65,10 +64,12 @@ export default function ContactForm() {
   if (status === "success") {
     return (
       <div className="bg-white border border-v-border rounded-2xl p-10 text-center">
-        <div className="text-4xl mb-4">⚡</div>
-        <h3 className="font-display font-bold text-2xl text-v-ink mb-3">Got it. We'll be in touch.</h3>
+        <div className="w-14 h-14 rounded-full bg-v-green/20 flex items-center justify-center mx-auto mb-4">
+          <BoltIcon className="w-7 h-7 text-v-green" />
+        </div>
+        <h3 className="font-display font-bold text-2xl text-v-ink mb-3">Got it. We&apos;ll be in touch.</h3>
         <p className="font-body text-v-muted">
-          We'll review your submission and reach out within a few days.
+          We&apos;ll review your submission and reach out within a few days.
         </p>
       </div>
     );
@@ -79,46 +80,22 @@ export default function ContactForm() {
       <div className="grid md:grid-cols-2 gap-5">
         <div>
           <label className="block font-body text-sm font-semibold text-v-ink mb-2">Business Name *</label>
-          <input
-            required
-            value={formData.businessName}
-            onChange={(e) => setFormData((p) => ({ ...p, businessName: e.target.value }))}
-            className="volta-input"
-            placeholder="e.g. Juliette Floral Design"
-          />
+          <input required value={formData.businessName} onChange={(e) => setFormData((p) => ({ ...p, businessName: e.target.value }))} className="volta-input" placeholder="e.g. Juliette Floral Design" />
         </div>
         <div>
           <label className="block font-body text-sm font-semibold text-v-ink mb-2">Your Name *</label>
-          <input
-            required
-            value={formData.name}
-            onChange={(e) => setFormData((p) => ({ ...p, name: e.target.value }))}
-            className="volta-input"
-            placeholder="Owner or contact name"
-          />
+          <input required value={formData.name} onChange={(e) => setFormData((p) => ({ ...p, name: e.target.value }))} className="volta-input" placeholder="Owner or contact name" />
         </div>
       </div>
 
       <div className="grid md:grid-cols-2 gap-5">
         <div>
           <label className="block font-body text-sm font-semibold text-v-ink mb-2">Email *</label>
-          <input
-            required
-            type="email"
-            value={formData.email}
-            onChange={(e) => setFormData((p) => ({ ...p, email: e.target.value }))}
-            className="volta-input"
-            placeholder="you@yourbusiness.com"
-          />
+          <input required type="email" value={formData.email} onChange={(e) => setFormData((p) => ({ ...p, email: e.target.value }))} className="volta-input" placeholder="you@yourbusiness.com" />
         </div>
         <div>
           <label className="block font-body text-sm font-semibold text-v-ink mb-2">Neighborhood</label>
-          <input
-            value={formData.neighborhood}
-            onChange={(e) => setFormData((p) => ({ ...p, neighborhood: e.target.value }))}
-            className="volta-input"
-            placeholder="e.g. Park Slope, Flushing"
-          />
+          <input value={formData.neighborhood} onChange={(e) => setFormData((p) => ({ ...p, neighborhood: e.target.value }))} className="volta-input" placeholder="e.g. Park Slope, Flushing" />
         </div>
       </div>
 
@@ -126,16 +103,8 @@ export default function ContactForm() {
         <label className="block font-body text-sm font-semibold text-v-ink mb-3">What do you need help with?</label>
         <div className="flex flex-wrap gap-2">
           {SERVICES.map((s) => (
-            <button
-              key={s}
-              type="button"
-              onClick={() => toggleService(s)}
-              className={`text-sm font-body font-medium px-4 py-2 rounded-full border transition-all ${
-                formData.services.includes(s)
-                  ? "bg-v-green border-v-green text-v-ink"
-                  : "bg-white border-v-border text-v-muted hover:border-v-ink"
-              }`}
-            >
+            <button key={s} type="button" onClick={() => toggleService(s)}
+              className={`text-sm font-body font-medium px-4 py-2 rounded-full border transition-all ${formData.services.includes(s) ? "bg-v-green border-v-green text-v-ink" : "bg-white border-v-border text-v-muted hover:border-v-ink"}`}>
               {s}
             </button>
           ))}
@@ -144,32 +113,17 @@ export default function ContactForm() {
 
       <div>
         <label className="block font-body text-sm font-semibold text-v-ink mb-2">Tell us more</label>
-        <textarea
-          value={formData.message}
-          onChange={(e) => setFormData((p) => ({ ...p, message: e.target.value }))}
-          className="volta-input resize-none"
-          rows={4}
-          placeholder="What's your biggest challenge right now? Any context helps."
-        />
+        <textarea value={formData.message} onChange={(e) => setFormData((p) => ({ ...p, message: e.target.value }))} className="volta-input resize-none" rows={4} placeholder="What&apos;s your biggest challenge right now? Any context helps." />
       </div>
 
-      <button
-        type="submit"
-        disabled={status === "loading"}
-        className="w-full bg-v-blue text-white font-display font-bold text-base py-4 rounded-xl hover:bg-v-blue-dark transition-colors disabled:opacity-60"
-      >
+      <button type="submit" disabled={status === "loading"} className="w-full bg-v-blue text-white font-display font-bold text-base py-4 rounded-xl hover:bg-v-blue-dark transition-colors disabled:opacity-60">
         {status === "loading" ? "Sending…" : "Send Message"}
       </button>
 
       {status === "error" && (
-        <p className="text-red-500 text-sm text-center font-body">
-          Something went wrong. Email us directly at volta.newyork@gmail.com
-        </p>
+        <p className="text-red-500 text-sm text-center font-body">Something went wrong. Email us at volta.newyork@gmail.com</p>
       )}
-
-      <p className="text-xs text-v-muted text-center font-body">
-        We typically respond within 2–3 business days. Our services are 100% free.
-      </p>
+      <p className="text-xs text-v-muted text-center font-body">We typically respond within 2–3 business days. Our services are 100% free.</p>
     </form>
   );
 }

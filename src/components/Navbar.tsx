@@ -10,6 +10,7 @@ const links = [
   { href: "/showcase", label: "Our Work" },
   { href: "/about", label: "About" },
   { href: "/partners", label: "For Businesses" },
+  { href: "/contact", label: "Contact" },
 ];
 
 export default function Navbar() {
@@ -25,6 +26,10 @@ export default function Navbar() {
 
   useEffect(() => setOpen(false), [pathname]);
 
+  // Pages with dark/coloured hero backgrounds need white nav text when unscrolled
+  const isDarkHero = pathname === "/partners";
+  const useWhiteText = isDarkHero && !scrolled && !open;
+
   return (
     <>
       <header
@@ -35,21 +40,19 @@ export default function Navbar() {
         }`}
       >
         <div className="max-w-7xl mx-auto px-5 md:px-8 h-16 flex items-center justify-between">
-          {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 group">
             <Image
               src="/logo.png"
               alt="Volta"
               width={32}
               height={32}
-              className="object-contain"
+              className={`object-contain transition-all ${useWhiteText ? "brightness-200" : ""}`}
             />
-            <span className="font-display font-black text-xl text-v-ink tracking-tight">
-              VOLTA<span className="text-v-green">.</span>NYC
+            <span className={`font-display font-bold text-xl tracking-tight transition-colors ${useWhiteText ? "text-white" : "text-v-ink"}`}>
+              VOLTA NYC
             </span>
           </Link>
 
-          {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-8">
             {links.map((l) => (
               <Link
@@ -58,6 +61,8 @@ export default function Navbar() {
                 className={`font-body text-sm font-semibold transition-colors ${
                   pathname === l.href
                     ? "text-v-green"
+                    : useWhiteText
+                    ? "text-white/80 hover:text-white"
                     : "text-v-muted hover:text-v-ink"
                 }`}
               >
@@ -72,26 +77,18 @@ export default function Navbar() {
             </Link>
           </nav>
 
-          {/* Mobile hamburger */}
           <button
             onClick={() => setOpen(!open)}
-            className="md:hidden flex flex-col gap-1.5 p-2"
+            className={`md:hidden flex flex-col gap-1.5 p-2 ${useWhiteText ? "text-white" : ""}`}
             aria-label="Menu"
           >
-            <span
-              className={`block h-0.5 w-5 bg-v-ink transition-all duration-300 ${open ? "rotate-45 translate-y-2" : ""}`}
-            />
-            <span
-              className={`block h-0.5 w-5 bg-v-ink transition-all duration-300 ${open ? "opacity-0" : ""}`}
-            />
-            <span
-              className={`block h-0.5 w-5 bg-v-ink transition-all duration-300 ${open ? "-rotate-45 -translate-y-2" : ""}`}
-            />
+            <span className={`block h-0.5 w-5 transition-all duration-300 ${useWhiteText && !open ? "bg-white" : "bg-v-ink"} ${open ? "rotate-45 translate-y-2" : ""}`} />
+            <span className={`block h-0.5 w-5 transition-all duration-300 ${useWhiteText && !open ? "bg-white" : "bg-v-ink"} ${open ? "opacity-0" : ""}`} />
+            <span className={`block h-0.5 w-5 transition-all duration-300 ${useWhiteText && !open ? "bg-white" : "bg-v-ink"} ${open ? "-rotate-45 -translate-y-2" : ""}`} />
           </button>
         </div>
       </header>
 
-      {/* Mobile menu */}
       <AnimatePresence>
         {open && (
           <motion.div

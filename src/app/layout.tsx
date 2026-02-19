@@ -1,20 +1,20 @@
 import type { Metadata } from "next";
-import { Syne, Plus_Jakarta_Sans } from "next/font/google";
+import { Space_Grotesk, DM_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-const syne = Syne({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  weight: ["400", "600", "700", "800"],
-  variable: "--font-syne",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-space-grotesk",
   display: "swap",
 });
 
-const jakarta = Plus_Jakarta_Sans({
+const dmSans = DM_Sans({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
-  variable: "--font-jakarta",
+  variable: "--font-dm-sans",
   display: "swap",
 });
 
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://nyc.voltanpo.org"),
   openGraph: {
     title: "Volta NYC",
-    description: "Real projects. Real impact. Built by students.",
+    description: "Built by students. For NYC small businesses.",
     url: "https://nyc.voltanpo.org",
     siteName: "Volta NYC",
     locale: "en_US",
@@ -35,11 +35,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${syne.variable} ${jakarta.variable}`}>
+    <html lang="en" className={`${spaceGrotesk.variable} ${dmSans.variable}`}>
       <body>
         <Navbar />
         <main>{children}</main>
